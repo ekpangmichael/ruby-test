@@ -1,4 +1,5 @@
 require 'rails_helper'
+require_relative '../app/controllers/Squarer.rb'
 
 RSpec.describe Squarer do
   it 'should return true' do
