@@ -1,0 +1,47 @@
+#!groovy​
+
+pipeline {
+agent {
+  kubernetes {
+    label 'ruby-test'
+    defaultContainer 'jnlp'
+    yamlFile 'jenkins/agent.yaml'
+}
+  }
+
+  environment {
+    PROJECT_NAME = 'Ruby-test'
+  }
+
+  stages {
+   
+    stage('test that is working') {
+      steps {
+        container('ruby-test-agent') {
+          sh "echo is working"
+        }
+      }
+    }
+
+    stage('Install gem') {
+      steps {
+        container('ruby-test-agent') {
+          sh "bundle install"
+        }
+      }
+    }
+
+     stage('Run test') {
+      steps {
+        container('ruby-test-agent') {
+          sh "bundle exec rspec"
+        }
+      }
+    }
+
+  
+
+   
+
+  }
+}
